@@ -18,7 +18,7 @@ public class Hangman_main {
             while (mistakeCount < 7 && !seekWord.equals(maskWord)) {
                 printHangMan(mistakeCount);
                 printMistakes(mistakeCount);
-                printMaskWord(maskWord);
+                printWord(maskWord);
                 char charInput = getLowCaseChar();
                 if (isWordContainsChar(seekWord, charInput)){
                     maskWord = maskBuilder(seekWord, charInput, maskWord);
@@ -27,7 +27,7 @@ public class Hangman_main {
                 }
             }
             gameResult(mistakeCount);
-            printMaskWord(maskWord);
+            printWord(seekWord);
         }
     }
 
@@ -88,8 +88,9 @@ public class Hangman_main {
         for (int i = 0; i < arrHangMan.length; i++) {
             for (int j = 0; j < arrHangMan[i].length; j++) {
                 if ((i == 0 && j >= 4 && j < columns - 1) ||
-                        (i == rows - 1 && j <= 8 && j != 4)) System.out.print("_");
+                    (i == rows - 1 && j <= 8 && j != 4)) System.out.print("_");
                 else if ((i > 0 && j == 4)) System.out.print("|");
+                else if ((i == 1 && j == 5)) System.out.print("/");
                 else if ((mistakeCount > 0 && i == 1 && j == 12)) System.out.print("|");
                 else if ((mistakeCount > 0 && i == 2 && j == 11)){System.out.print("(_)"); break;}
                 else if ((mistakeCount > 1 && i == 3 && j == 11)) System.out.print("\\");
@@ -98,7 +99,6 @@ public class Hangman_main {
                 else if ((mistakeCount > 4 && i == 4 && j == 12)) System.out.print("|");
                 else if ((mistakeCount > 5 && i == 5 && j == 11)) System.out.print("/");
                 else if ((mistakeCount > 6 && i == 5 && j == 13)) System.out.print("\\");
-                else if ((mistakeCount > 7 && i == 1 && j == 5)) System.out.print("/");
                 else System.out.print(" ");
             }
             System.out.println();
@@ -113,12 +113,12 @@ public class Hangman_main {
         System.out.println("Mistakes: " + mistakeCount);
     }
 
-    public static void printMaskWord (String maskWord){
-        System.out.println(maskWord);
+    public static void printWord (String Word){
+        System.out.println(Word);
     }
 
     public static boolean isWordContainsChar(String seekWord, char charInput){
-            return seekWord.indexOf(charInput) != -1;
+        return seekWord.indexOf(charInput) != -1;
     }
 
     public static boolean isIgnoreSymbols (char charInput){
