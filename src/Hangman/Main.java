@@ -15,39 +15,44 @@ public class Main {
         while (true){
             printInitialScreen();
             if (awaitInitialInput() == EXIT) System.exit(0);
-            int mistakeCount = 0;
-            List<Character> incorrectCharsList = new ArrayList<>();
-            List<String> listWithWords = readWordsFromFile();
-            String seekWord = getRandomWord(listWithWords);
-            String maskWord = fillingMask(seekWord);
-            do  {
-                printHangMan(mistakeCount);
-                printInputtedIncorrectChars(incorrectCharsList);
-                printMistakesCount(mistakeCount);
-                printMaskWord(maskWord);
-                String entryByPlayer = getPlayerInput();
-                if(!(isInputCorrect(entryByPlayer))){
-                    printNotificationIncorrectInput();
-                    continue;
-                }
-                char inputChar = getLowCaseChar(entryByPlayer);
-                if (isDuplicatedIncorrectChar(inputChar, incorrectCharsList)){
-                    printNotificationDuplicatedIncorrectChar();
-                } else if (isDuplicatedCorrectChar(inputChar, maskWord)) {
-                     printNotificationDuplicatedCorrectChar();
-                } else if (isWordContainsInputChar(seekWord, inputChar)){
-                     maskWord = rebuildMaskWord(seekWord, inputChar, maskWord);
-                } else {
-                    mistakeCount++;
-                    incorrectCharsList.add(inputChar);
-                }
-            } while (mistakeCount < MAX_MISTAKES && !seekWord.equals(maskWord));
+            gameInit();
+        }
+    }
+
+    private static void gameInit(){
+        int mistakeCount = 0;
+        List<Character> incorrectCharsList = new ArrayList<>();
+        List<String> listWithWords = readWordsFromFile();
+        String seekWord = getRandomWord(listWithWords);
+        String maskWord = fillingMask(seekWord);
+        do  {
             printHangMan(mistakeCount);
-            printResult(mistakeCount);
             printInputtedIncorrectChars(incorrectCharsList);
             printMistakesCount(mistakeCount);
-            printSeekWord(seekWord);
-        }
+            printMaskWord(maskWord);
+            String entryByPlayer = getPlayerInput();
+            if(!(isInputCorrect(entryByPlayer))){
+                printNotificationIncorrectInput();
+                continue;
+            }
+            char inputChar = getLowCaseChar(entryByPlayer);
+            if (isDuplicatedIncorrectChar(inputChar, incorrectCharsList)){
+                printNotificationDuplicatedIncorrectChar();
+            } else if (isDuplicatedCorrectChar(inputChar, maskWord)) {
+                printNotificationDuplicatedCorrectChar();
+            } else if (isWordContainsInputChar(seekWord, inputChar)){
+                maskWord = rebuildMaskWord(seekWord, inputChar, maskWord);
+            } else {
+                mistakeCount++;
+                incorrectCharsList.add(inputChar);
+            }
+
+        } while (mistakeCount < MAX_MISTAKES && !seekWord.equals(maskWord));
+        printHangMan(mistakeCount);
+        printResult(mistakeCount);
+        printInputtedIncorrectChars(incorrectCharsList);
+        printMistakesCount(mistakeCount);
+        printSeekWord(seekWord);
     }
 
     private static int awaitInitialInput(){
