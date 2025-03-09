@@ -5,11 +5,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-
 public class Main {
 
     final static int START = 1;
     final static int EXIT = 2;
+    final static int MAX_MISTAKES = 6;
 
     public static void main(String[] args) {
         while (true){
@@ -41,7 +41,7 @@ public class Main {
                     mistakeCount++;
                     incorrectCharsList.add(inputChar);
                 }
-            } while (mistakeCount < 7 && !seekWord.equals(maskWord));
+            } while (mistakeCount < MAX_MISTAKES && !seekWord.equals(maskWord));
             printHangMan(mistakeCount);
             printResult(mistakeCount);
             printInputtedIncorrectChars(incorrectCharsList);
@@ -173,8 +173,8 @@ public class Main {
                      +--------+
                      |/       |
                      |       (_)
-                     |       \\
-                     |
+                     |        |
+                     |        |
                      |
                      |
                  ____|____
@@ -184,17 +184,7 @@ public class Main {
                      |/       |
                      |       (_)
                      |       \\|
-                     |
-                     |
-                     |
-                 ____|____
-                 """},
-                {"""
-                     +--------+
-                     |/       |
-                     |       (_)
-                     |       \\|/
-                     |
+                     |        |
                      |
                      |
                  ____|____
@@ -263,10 +253,10 @@ public class Main {
     }
 
     private static void printResult(int mistakeCount){
-        if (mistakeCount < 7) {
+        if (mistakeCount < MAX_MISTAKES) {
             System.out.println("Поздравляю! Ты выиграл!");
         } else {
-            System.out.println("Опа...кто-то не выжил. Игра окончена.");
+            System.out.println("Опа...кто-то не выжил. Отгадывающий проиграл.");
         }
     }
 }
