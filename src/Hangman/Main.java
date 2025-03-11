@@ -7,9 +7,9 @@ import java.util.*;
 
 public class Main {
 
-    private final static String CMD_START = "старт";
-    private final static String CMD_EXIT = "выход";
-    private final static int MAX_MISTAKES = 6;
+    private static final String CMD_START = "старт";
+    private static final String CMD_EXIT = "выход";
+    private static final int MAX_MISTAKES = 6;
     private static final Random RANDOM = new Random();
     private static final Scanner SCANNER = new Scanner(System.in);
     private static final String[][] versionOfHangMan = {
