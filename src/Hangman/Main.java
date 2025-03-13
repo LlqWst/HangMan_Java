@@ -111,10 +111,10 @@ public class Main {
                 continue;
             }
             char inputLetter = getLetter(entryByPlayer);
-            if (isWrongDuplicated(inputLetter, wrongLetters)){
-                notifyWrongsDuplicated();
-            } else if (isCorrectDuplicated(inputLetter, maskWord)) {
-                notifyCorrectDuplicated();
+            if (isWrongLetterDuplicated(inputLetter, wrongLetters)){
+                notifyWrongsLetterDuplicated();
+            } else if (isCorrectLetterDuplicated(inputLetter, maskWord)) {
+                notifyCorrectLetterDuplicated();
             } else if (isCorrectLetter(seekWord, inputLetter)){
                 maskWord = rebuildMask(seekWord, inputLetter, maskWord);
             } else {
@@ -140,7 +140,7 @@ public class Main {
                 default:
                     System.out.println("Уведомление: Некорректный ввод!");
                     System.out.println("Ожидается 'старт' или 'выход'");
-                    System.out.println("Ввод должн быть без одинарных кавычек");
+                    System.out.println("Ввод должен быть без одинарных кавычек");
             }
         }
     }
@@ -184,11 +184,11 @@ public class Main {
         return Character.UnicodeBlock.of(letter) == Character.UnicodeBlock.CYRILLIC;
     }
 
-    private static boolean isWrongDuplicated(char inputChar, List<Character> incorrectLetters){
+    private static boolean isWrongLetterDuplicated(char inputChar, List<Character> incorrectLetters){
         return incorrectLetters.contains(inputChar);
     }
 
-    private static boolean isCorrectDuplicated(char inputChar, String maskWord){
+    private static boolean isCorrectLetterDuplicated(char inputChar, String maskWord){
         return maskWord.indexOf(inputChar) != -1;
     }
 
@@ -214,7 +214,7 @@ public class Main {
         System.out.println();
         System.out.println("|------------------------------Виселица-----------------------------|");
         System.out.printf("|Для начала игры введите '%s', для выхода из игры введите '%s'| %n", CMD_START, CMD_EXIT);
-        System.out.println("|Ввод должн быть без одинарных кавычек                              |");
+        System.out.println("|Ввод должен быть без одинарных кавычек                             |");
         System.out.println("|-------------------------------------------------------------------|");
     }
 
@@ -227,11 +227,11 @@ public class Main {
         System.out.println("Ожидается ввод только одной буквы кириллицы");
     }
 
-    private static void notifyWrongsDuplicated(){
+    private static void notifyWrongsLetterDuplicated(){
         System.out.println("Уведомление: повторно введена некорректная буква!");
     }
 
-    private static void notifyCorrectDuplicated(){
+    private static void notifyCorrectLetterDuplicated(){
         System.out.println("Уведомление: повторно введена угаданная буква!");
     }
 
